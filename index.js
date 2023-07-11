@@ -125,4 +125,34 @@ const jobs = [
     },
   ]
   
+//svolgimento
+
+function searchJobs(titleQuery, locationQuery) {
+    const result = [];
   
+    for (let i = 0; i < jobs.length; i++) {
+      const job = jobs[i];
+      const lowercaseTitle = job.title.toLowerCase();
+      const lowercaseLocation = job.location.toLowerCase();
+  
+      if (
+        lowercaseTitle.includes(titleQuery.toLowerCase()) &&
+        lowercaseLocation.includes(locationQuery.toLowerCase())
+      ) {
+        const { description, requirements, benefits, company_profile, ...filteredJob } = job;
+        result.push(filteredJob);
+      }
+    }
+  
+    return {
+      result: result,
+      count: result.length,
+    };
+  }
+  
+  
+  
+  //richiamo funzione
+
+const searchResult = searchJobs("Developer", "US");
+console.log(searchResult);
