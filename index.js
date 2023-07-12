@@ -128,31 +128,38 @@ const jobs = [
 //svolgimento
 
 function searchJobs(titleQuery, locationQuery) {
-    const result = [];
+    const result = []; //array vuoto result che conterrà i risultati della ricerca.
+    const lowercaseTitleQuery = titleQuery.toLowerCase(); //lettere minuscole dei parametri di ricerca
+    const lowercaseLocationQuery = locationQuery.toLowerCase();
+    let count = 0;
   
-    for (let i = 0; i < jobs.length; i++) {
+
+    //viene estratto l'oggetto job corrente e vengono creati due nuovi parametri lowercaseTitle e lowercaseLocation che contengono
+    // le versioni in lettere minuscole del titolo e della posizione lavorativa dell'oggetto job
+    for (let i = 0; i < jobs.length; i++) {    //Ciclo for per scorrere l'array jobs
       const job = jobs[i];
-      const lowercaseTitle = job.title.toLowerCase();
+      const lowercaseTitle = job.title.toLowerCase();        
       const lowercaseLocation = job.location.toLowerCase();
-  
+
+  //Viene verificato se sia il lowercaseTitle che il lowercaseLocation contengono le corrispondenti 
+  //stringhe di ricerca lowercaseTitleQuery e lowercaseLocationQuery
+//Se entrambe le condizioni sono vere, l'oggetto job viene aggiunto all'array result e il contatore count viene incrementato di 1
       if (
-        lowercaseTitle.includes(titleQuery.toLowerCase()) &&
-        lowercaseLocation.includes(locationQuery.toLowerCase())
+        lowercaseTitle.includes(lowercaseTitleQuery) &&
+        lowercaseLocation.includes(lowercaseLocationQuery)
       ) {
-        const { description, requirements, benefits, company_profile, ...filteredJob } = job;
-        result.push(filteredJob);
+        result.push(job);
+        count++;
       }
     }
   
-    return {
-      result: result,
-      count: result.length,
-    };
+    //la funzione restituisce un oggetto contenente l'array result con gli oggetti job che corrispondono
+    // alla ricerca e il valore del contatore count che rappresenta il numero totale di inserzioni trovate
+    return { result, count };
   }
-  
   
   
   //richiamo funzione
 
-const searchResult = searchJobs("Developer", "US");
-console.log(searchResult);
+searchJobs("Dev", "US");
+console.log(searchJobs("Dev","US"));
