@@ -161,5 +161,43 @@ function searchJobs(titleQuery, locationQuery) {
   
   //richiamo funzione
 
-searchJobs("Dev", "US");
-console.log(searchJobs("Dev","US"));
+//searchJobs("Dev", "US");
+//console.log(searchJobs("Dev","US"));
+
+
+// Funzione per mostrare i risultati sulla pagina
+
+function displayResults(result, count) {
+  const resultsContainer = document.querySelector('#results-container');
+
+  const countElement = document.createElement('p');
+  countElement.textContent = 'Risultati trovati: ' + count;
+  resultsContainer.appendChild(countElement);
+
+  const ul = document.createElement('ul');
+  resultsContainer.appendChild(ul);
+
+  for (let i = 0; i < result.length; i++) {
+    const job = result[i];
+    
+    const li = document.createElement('li');
+    li.textContent = job.title + job.location;
+    ul.appendChild(li);
+  }
+}
+
+
+
+// Funzione per gestire il click del bottone di ricerca
+function handleSearch() {
+  const titleQuery = document.querySelector('#title-input').value;
+  const locationQuery = document.querySelector('#location-input').value;
+
+  const searchResult = searchJobs(titleQuery, locationQuery);
+
+  displayResults(searchResult.result, searchResult.count);
+}
+
+// Aggiungi l'evento click al bottone di ricerca
+const searchButton = document.querySelector('#search-button');
+searchButton.addEventListener('click', handleSearch);
