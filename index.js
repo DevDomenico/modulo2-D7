@@ -158,6 +158,9 @@ function searchJobs(titleQuery, locationQuery) {
     return { result, count };
   }
   
+  //
+//La funzione searchJobs cerca gli annunci di lavoro che corrispondono ai criteri di ricerca specificati per il titolo e la località.
+// Confronta i titoli e le località degli annunci di lavoro con le stringhe di ricerca convertite in lettere minuscole.
   
   //richiamo funzione
 
