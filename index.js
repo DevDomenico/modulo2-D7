@@ -129,15 +129,15 @@ const jobs = [
 
 function searchJobs(titleQuery, locationQuery) {
     const result = []; //array vuoto result che conterrà i risultati della ricerca.
-    const lowercaseTitleQuery = titleQuery.toLowerCase(); //lettere minuscole dei parametri di ricerca
+    const lowercaseTitleQuery = titleQuery.toLowerCase(); //lettere minuscole dei parametri di ricerca assegnati alle variabili 
+                                      //lowercaseTitleQuery e lowercaseLocationQuery, rispettivamente. Ciò assicura che la ricerca non 
+                                      //sia sensibile alle maiuscole/minuscole.
     const lowercaseLocationQuery = locationQuery.toLowerCase();
-    let count = 0;
+    let count = 0; //La variabile count viene inizializzata a 0 per rappresentare il numero totale di inserzioni che soddisfano i criteri di ricerca.
   
-
-    //viene estratto l'oggetto job corrente e vengono creati due nuovi parametri lowercaseTitle e lowercaseLocation che contengono
-    // le versioni in lettere minuscole del titolo e della posizione lavorativa dell'oggetto job
-    for (let i = 0; i < jobs.length; i++) {    //Ciclo for per scorrere l'array jobs
-      const job = jobs[i];
+    for (let i = 0; i < jobs.length; i++) {    //Ciclo for per scorrere l'array jobs consente di esaminare ogni singola inserzione di lavoro 
+                                              //all'interno dell'array jobs e di eseguire le operazioni necessarie su ciascuna inserzione
+      const job = jobs[i]; //Ad ogni iterazione del ciclo, l'elemento corrispondente dell'array jobs viene assegnato alla variabile job
       const lowercaseTitle = job.title.toLowerCase();        
       const lowercaseLocation = job.location.toLowerCase();
 
@@ -167,37 +167,60 @@ function searchJobs(titleQuery, locationQuery) {
 
 // Funzione per mostrare i risultati sulla pagina
 
+//questa funzione  si occupa di creare gli elementi HTML necessari per visualizzare i risultati della ricerca all'interno di un contenitore nel documento HTML. 
 function displayResults(result, count) {
-  const resultsContainer = document.querySelector('#results-container');
+  const resultsContainer = document.querySelector("#results-container"); 
+  //Viene selezionato l'elemento con l'ID results-container all'interno del documento HTML 
+  //utilizzando il metodo querySelector(). Questo elemento sarà il contenitore in cui visualizzeremo i risultati della ricerca.
 
-  const countElement = document.createElement('p');
-  countElement.textContent = 'Risultati trovati: ' + count;
+
+////Viene creato un nuovo elemento paragrafo <p> utilizzando il metodo document.createElement('p'). Questo elemento sarà utilizzato per mostrare il numero totale di inserzioni trovate
+  const countElement = document.createElement('p'); 
+  //In questo modo, il paragrafo visualizzerà il testo "Risultati trovati: " seguito dal valore di count poiche Il contenuto testuale
+  // del paragrafo creato viene impostato sulla base del numero totale di inserzioni trovate utilizzando l'istruzione 
+  countElement.textContent = 'Risultati trovati: ' + count; 
+  //L'elemento paragrafo countElement viene aggiunto come figlio dell'elemento resultsContainer utilizzando il
+  // metodo appendChild(countElement). Ciò significa che il paragrafo sarà inserito all'interno del contenitore dei 
+  //risultati e verrà visualizzato nel documento HTML.
   resultsContainer.appendChild(countElement);
 
-  const ul = document.createElement('ul');
-  resultsContainer.appendChild(ul);
+  const ul = document.createElement('ul'); //Questo elemento rappresenterà una lista in cui verranno visualizzate le singole inserzioni di lavoro.
+  resultsContainer.appendChild(ul); //utilizzando il metodo appendChild(ul). In questo modo, l'elemento <ul> verrà inserito all'interno del contenitore dei risultati.
 
+  //Viene avviato un ciclo for che scorre gli elementi dell'array result, che contiene gli oggetti di lavoro corrispondenti ai criteri di ricerca.
   for (let i = 0; i < result.length; i++) {
     const job = result[i];
     
-    const li = document.createElement('li');
-    li.textContent = job.title + job.location;
-    ul.appendChild(li);
+    const li = document.createElement('li'); //utilizzando questo metedo verrà rappresentata  una singola voce di lista in cui verrà visualizzata un'inserzione di lavoro.
+    li.textContent = job.title + job.location; //In questo modo, l'elemento di lista visualizzerà il titolo del lavoro seguito dalla posizione geografica.
+    ul.appendChild(li); //l'elemento di lista sarà inserito all'interno della lista.
   }
 }
 
 
 
 // Funzione per gestire il click del bottone di ricerca
+//la funzione handleSearch recupera i valori inseriti  negli elementi di input per il titolo e la posizione, 
+//esegue la ricerca utilizzando la funzione searchJobs, e visualizza i risultati ottenuti utilizzando la funzione displayResults.
+
 function handleSearch() {
-  const titleQuery = document.querySelector('#title-input').value;
+  //per selezionare l'elemento nel documento HTML che ha l'ID title-input viene utilizzata la proprietà .value per ottenere il 
+  //valore inserito dall'utente. il valore inserito viene assegnato alla variabile titleQuery mediante l'istruzione const titleQuery 
   const locationQuery = document.querySelector('#location-input').value;
+  const titleQuery = document.querySelector('#title-input').value; 
+  //Questi valori rappresentano i criteri di ricerca inseriti per il titolo del lavoro e la posizione geografica.
 
   const searchResult = searchJobs(titleQuery, locationQuery);
+  //Viene chiamata la funzione searchJobs con i valori titleQuery e locationQuery come argomenti. La funzione searchJobs restituirà 
+  //un oggetto contenente l'array dei risultati e il conteggio totale delle inserzioni trovate. 
 
-  displayResults(searchResult.result, searchResult.count);
+  displayResults(searchResult.result, searchResult.count); //visualizzerà i risultati della ricerca nel documento HTML
 }
 
 // Aggiungi l'evento click al bottone di ricerca
-const searchButton = document.querySelector('#search-button');
-searchButton.addEventListener('click', handleSearch);
+
+const searchButton = document.querySelector('#search-button'); //utilizzo questo metodo per selezionare l'elemento nel documento HTML che ha l'ID search-button
+searchButton.addEventListener('click', handleSearch); //quando l'evento 'click' si verifica sul bottone di ricerca, la funzione handleSearch verrà eseguita.
+
+//questi ultimi passaggi sono utilizzati per associare la funzione handleSearch all'evento di click del bottone di ricerca.
+// Quando si fa clic sul bottone di ricerca, la funzione handleSearch viene eseguita per recuperare i valori inseriti negli input
