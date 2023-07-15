@@ -177,7 +177,7 @@ function displayResults(result, count) {
   //utilizzando il metodo querySelector(). Questo elemento sarà il contenitore in cui visualizzeremo i risultati della ricerca.
 
 
-////Viene creato un nuovo elemento paragrafo <p> utilizzando il metodo document.createElement('p'). Questo elemento sarà utilizzato per mostrare il numero totale di inserzioni trovate
+//Viene creato un nuovo elemento paragrafo <p> utilizzando il metodo document.createElement('p'). Questo elemento sarà utilizzato per mostrare il numero totale di inserzioni trovate
   const countElement = document.createElement('p'); 
   //In questo modo, il paragrafo visualizzerà il testo "Risultati trovati: " seguito dal valore di count poiche Il contenuto testuale
   // del paragrafo creato viene impostato sulla base del numero totale di inserzioni trovate utilizzando l'istruzione 
@@ -225,5 +225,5 @@ function handleSearch() {
 const searchButton = document.querySelector('#search-button'); //utilizzo questo metodo per selezionare l'elemento nel documento HTML che ha l'ID search-button
 searchButton.addEventListener('click', handleSearch); //quando l'evento 'click' si verifica sul bottone di ricerca, la funzione handleSearch verrà eseguita.
 
-//questi ultimi passaggi sono utilizzati per associare la funzione handleSearch all'evento di click del bottone di ricerca.
+
 // Quando si fa clic sul bottone di ricerca, la funzione handleSearch viene eseguita per recuperare i valori inseriti negli input
